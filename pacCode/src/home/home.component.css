@@ -1,0 +1,113 @@
+.toolbar {
+  background-color: #009688;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-button-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.toolbar-title-container {
+  display: flex;
+  justify-content: center;
+  flex: 2;
+}
+
+.toolbar-button {
+  margin-right: 8px;
+}
+
+.toolbar-title {
+  font-size: 1.5em;
+}
+
+.login_container{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_container__form{
+  width: 400px;
+  padding-bottom: 100px;
+}
+
+.login_container__form__title{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  padding: 16px 0;
+  color: #009688; /* Cor principal do tema */
+}
+
+.login_container__form__control{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 16px;
+}
+
+.login_container__form__control__label{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  margin: 4px 0;
+  color: #CDD4DE;
+}
+
+.login_container__form__control__input{
+  background-color: #FFFFFF; /* Cor alterada para branco */
+  border: none;
+  outline: none;
+  padding: 18px 12px;
+  border-radius: 8px;
+}
+
+.login_container__form__control__input::placeholder{
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #767676;
+}
+
+.login_container__form__button{
+  padding: 16px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: white;
+  background: #009688;
+  /* border: 1px solid black; */
+  outline: none;
+  border-radius: 8px;
+  width: 100%;
+  margin: 16px 0;
+  cursor: pointer;
+}
+
+.login_container__form__create{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #FFFFFF;
+}
+
+.login_container__form__create_account{
+  text-decoration: none;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #D58936;
+}

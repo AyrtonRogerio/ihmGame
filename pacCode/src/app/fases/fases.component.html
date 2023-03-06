@@ -1,0 +1,62 @@
+<mat-toolbar class="toolbar">
+  <div class="toolbar-button-container">
+    <button class="toolbar-button" mat-icon-button routerLink="/home" aria-label="Voltar">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+  <div class="toolbar-title-container">
+    <span class="toolbar-title">Fases</span>
+  </div>
+</mat-toolbar>
+
+
+<div class="container">
+  <mat-card class="card" (click)="startGame(1)">
+    <mat-card-header>
+      <div mat-card-avatar class="card-header-image"></div>
+      <mat-card-title>Fase 1</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://via.placeholder.com/350x200/009688/FFFFFF?text=Fase+1" alt="Fase 1">
+    <mat-card-content class="card-content">
+      <p>Aqui vai uma breve descrição da fase 1.</p>
+    </mat-card-content>
+    <mat-card-actions class="card-actions">
+      <button mat-icon-button color="accent" class="card-button" (click)="startGame(1)">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="card" (click)="startGame(2)">
+    <mat-card-header>
+      <div mat-card-avatar class="card-header-image"></div>
+      <mat-card-title>Fase 2</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://via.placeholder.com/350x200/009688/FFFFFF?text=Fase+2" alt="Fase 2">
+    <mat-card-content class="card-content">
+      <p>Aqui vai uma breve descrição da fase 2.</p>
+    </mat-card-content>
+    <mat-card-actions class="card-actions">
+      <button mat-icon-button color="accent" class="card-button" (click)="startGame(2)">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="card" (click)="startGame(3)">
+    <mat-card-header>
+      <div mat-card-avatar class="card-header-image"></div>
+      <mat-card-title>Fase 3</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://via.placeholder.com/350x200/009688/FFFFFF?text=Fase+3" alt="Fase 3">
+    <mat-card-content class="card-content">
+      <p>Aqui vai uma breve descrição da fase 3.</p>
+    </mat-card-content>
+    <mat-card-actions class="card-actions">
+      <button mat-icon-button color="accent" class="card-button" (click)="startGame(3)">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

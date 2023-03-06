@@ -1,0 +1,35 @@
+.container{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.title{
+  margin-top: 30vh;
+  margin-bottom: 10vh;
+}
+
+.title-span{
+    color: #009688;
+    font-weight: bold;
+    font-size: 140px;
+    -webkit-text-stroke-width: 0.1px;
+    -webkit-text-stroke-color: black;
+
+}
+
+.buttons button{
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+height: 10vh;
+width: 15vw;
+color: white;
+background-color: #009688;
+margin: 5vh;
+font-size: 16px;
+border-radius: 10px;
+}

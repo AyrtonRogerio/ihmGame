@@ -1,0 +1,10 @@
+
+.button-container{
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons{
+  color: white;
+  background-color: #009688;
+}
