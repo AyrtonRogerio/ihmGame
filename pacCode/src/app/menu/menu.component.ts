@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ModalComponent } from 'src/modal/modal.component';
+import { ModalComponent } from 'src/app/modal/modal.component';
 
 @Component({
   selector: 'app-menu',
