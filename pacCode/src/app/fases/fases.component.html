@@ -11,7 +11,7 @@
 
 
 <div class="container">
-  <mat-card class="card" (click)="startGame(1)">
+  <mat-card class="card" routerLink="/jogo" (click)="startGame(1)">
     <mat-card-header>
       <div mat-card-avatar class="card-header-image"></div>
       <mat-card-title>Fase 1</mat-card-title>
@@ -21,7 +21,7 @@
       <p>Aqui vai uma breve descrição da fase 1.</p>
     </mat-card-content>
     <mat-card-actions class="card-actions">
-      <button mat-icon-button color="accent" class="card-button" (click)="startGame(1)">
+      <button mat-icon-button color="accent" class="card-button" routerLink="/jogo" (click)="startGame(1)">
         <mat-icon>play_arrow</mat-icon>
       </button>
     </mat-card-actions>

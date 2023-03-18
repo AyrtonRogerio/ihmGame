@@ -1,4 +1,4 @@
-<mat-toolbar class="toolbar">
+<mat-toolbar class="toolbar" color="primary">
   <div class="toolbar-button-container">
     <button class="toolbar-button" mat-icon-button routerLink="/" aria-label="Voltar">
       <mat-icon>arrow_back</mat-icon>
@@ -11,10 +11,10 @@
 
 <div class="login_container">
   <div class="login_container__form">
-    <p class="login_container__form__title">Bem vindo!</p>
+    <p class="login_container__form__title">Bem vindo ao Pac-Code!</p>
     <div class="login_container__form__control">
       <mat-form-field hintLabel="Max 20 caracteres" appearance="fill">
-        <mat-label>Qual o seu nome?</mat-label>
+        <mat-label>Como prefere ser chamado?</mat-label>
         <input matInput [(ngModel)]="playerName" (ngModelChange)="validateName()" name="playerName" required maxlength="20" placeholder="Ex. José">
         <mat-hint align="end">{{playerName?.length || 0}}/20</mat-hint>
         <mat-error *ngIf="isNameInvalid()">Por favor, informe seu nome.</mat-error>

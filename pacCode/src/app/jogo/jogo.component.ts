@@ -12,7 +12,7 @@ import { Posicao } from '../model/posicao';
 @Component({
   selector: 'app-jogo',
   templateUrl: './jogo.component.html',
-  styleUrls: ['./jogo.component.css']
+  styleUrls: ['./jogo.component.scss']
 })
 export class JogoComponent implements OnInit {
 
@@ -82,7 +82,49 @@ this.directions = []
 
     // this.loadMedals()
 
-    this.onAnimate();
+    // this.onAnimate();
+  }
+
+  commands: string[] = [];
+
+  addCommand(command: string): void {
+    this.commands.push(command);
+  }
+
+  deleteLastCommand(): void {
+    this.commands.pop();
+  }
+
+  executeCommands(): void {
+    let currentIndex = 0;
+
+    const executeNextCommand = () => {
+      if (currentIndex < this.commands.length) {
+        const command = this.commands[currentIndex];
+
+        switch (command) {
+          // case 'moveUp':
+          //   this.moveUp();
+          //   break;
+          // case 'moveDown':
+          //   this.moveDown();
+          //   break;
+          // case 'moveLeft':
+          //   this.moveLeft();
+          //   break;
+          // case 'moveRight':
+          //   this.moveRight();
+          //   break;
+          default:
+            console.log(`Unknown command: ${command}`);
+        }
+
+        currentIndex++;
+        setTimeout(executeNextCommand, 500);
+      }
+    };
+
+    executeNextCommand();
   }
 
   loadCollisions() {
@@ -95,7 +137,7 @@ this.directions = []
 
     this.collisionsMap.forEach((row: any, i) => {
       row.forEach((symbol: any, j: number) => {
-        if (symbol === 321) {
+        if (symbol === 177) {
           this.boundaries.push
           (new Limite({
               x: j * 32,
