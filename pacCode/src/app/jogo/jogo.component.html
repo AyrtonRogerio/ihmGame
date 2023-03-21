@@ -6,7 +6,7 @@
   </div>
   <div class="toolbar-title-container">
     <mat-icon>clock</mat-icon>
-    <span class="toolbar-title">Jogo</span>
+    <span class="toolbar-title">Fase 1</span>
   </div>
 </mat-toolbar>
 
@@ -14,92 +14,35 @@
 
   <!--game-->
   <div class="mapa-game-container">
-    <!-- <canvas #myCanvas height="640" width="640"></canvas> -->
-    <canvas #myCanvas ></canvas>
+     <canvas #myCanvas height="400" width="960"></canvas>
+<!--    <canvas #myCanvas ></canvas>-->
   </div>
 
   <div class="game-controls-container">
 
 
-      <div class="game-controls-container">
 
-        <div class="direction-controls-container">
-          <h3>Direções</h3>
-          <div class="direction-controls">
-            <div class="control-box" (click)="addCommand('up')"><img src="../../assets/icons/Cima.svg"></div>
-            <div class="control-box" (click)="addCommand('down')"><img src="../../assets/icons/Baixo.svg"></div>
-            <div class="control-box" (click)="addCommand('left')"><img src="../../assets/icons/Esquerda.svg"></div>
-            <div class="control-box" (click)="addCommand('right')"><img src="../../assets/icons/Direita.svg"></div>
-          </div>
+      <div class="direction-controls-container">
+        <h3>Direções</h3>
+        <div class="direction-controls">
+          <div class="control-box" (click)="addCommand('up')"><img src="../../assets/icons/Cima.svg"></div>
+          <div class="control-box" (click)="addCommand('down')"><img src="../../assets/icons/Baixo.svg"></div>
+          <div class="control-box" (click)="addCommand('left')"><img src="../../assets/icons/Esquerda.svg"></div>
+          <div class="control-box" (click)="addCommand('right')"><img src="../../assets/icons/Direita.svg"></div>
         </div>
-
-        <div class="command-controls-container">
-          <h3>Comandos</h3>
-          <div class="command-controls">
-            <!-- <div class="command-box" *ngFor="let command of commands">{{command}}</div> -->
-            <div class="command-box"></div>
-            <div class="command-box"></div>
-            <div class="command-box"></div>
-            <div class="command-box"></div>
-            <div class="command-box"></div>
-            <div class="command-box"></div>
-            <div class="command-box"></div>
-            <div class="command-box"></div>
-          </div>
-        </div>
-
-        <div class="play-controls-container">
-          <button class="play-button" mat-raised-button color="primary" (click)="executeCommands()"><mat-icon>play_arrow</mat-icon></button>
-          <button class="delete-button" mat-raised-button color="warn" (click)="deleteLastCommand()"><mat-icon>delete</mat-icon></button>
-        </div>
-
       </div>
 
-    </div>
-
-
-
-
-  <!-- <div class="partida_container__start__reset">
-    <button class="partida_container__start__reset__button" (click)="resetOptionsSelect()">
-      <img class="partida_container__start__reset__button__icon" src="../../assets/drag_drop/reset.svg">
-    </button>
-    <button class="partida_container__start__reset__button" (click)="startAnimations()" >
-      <img class="partida_container__start__reset__button__icon"  src="../../assets/drag_drop/start.svg">
-    </button>
-  </div> -->
-
-  <!--  controler -->
-  <!-- <div class="partida_container__controls">
-    <div cdkDropListGroup class="drag_container_options"> -->
-      <!--  opções de seleção-->
-      <!-- <div cdkDropList [cdkDropListData]="options" class="drag_container_options__start"
-           cdkDropListOrientation="horizontal">
-        <img class="drag_container_options__item" *ngFor="let item of options; let i = index" cdkDrag src="{{item.path}}">
-      </div> -->
-      <!--  campo para destino de opçõs de função -->
-      <!-- <div cdkDropList [cdkDropListData]="selected_normal" cdkDropListOrientation="horizontal"
-           class="drag_container_options__destine"
-           (cdkDropListDropped)="dropOptionElementNormal($event)">
-        <img class="drag_container_options__item" *ngFor="let item of selected_normal; let i = index" cdkDrag src="{{item.path}}"  (dblclick)="onRemoveItemListNormal(i)" >
-      </div> -->
-      <!--   fundo de opção selecinadas-->
-      <!-- <img class="drag_container_options__img__sequence" src="../../assets/drag_drop/campo_sequencia.png"> -->
-
-      <!--  icone de opçao de função-->
-      <!-- <div cdkDropList [cdkDropListData]="option_function" class="drag_container_options__function"
-           cdkDropListOrientation="horizontal">
-        <img class="drag_container_options__item" *ngFor="let item of option_function" cdkDrag src="{{item.path}}">
+      <div class="command-controls-container">
+        <h3>Comandos</h3>
+        <div class="command-controls">
+           <div class="command-box" *ngFor="let command of commands">
+             <img [src]="getCommandImage(command)">
+           </div>
+        </div>
       </div>
-      <div cdkDropList [cdkDropListData]="selected_function" cdkDropListOrientation="horizontal"
-           class="drag_container_options__destine__function"
-           (cdkDropListDropped)="dropOptionElementFunction($event)">
-        <img class="drag_container_options__item" *ngFor="let item of selected_function; let j = index" cdkDrag src="{{item.path}}" (dblclick)="onRemoveItemListFunction(j)" >
+      <div class="play-controls-container">
+        <button class="play-button" mat-raised-button color="primary" (click)="executeCommands()"><mat-icon>play_arrow</mat-icon></button>
+        <button class="delete-button" mat-raised-button color="warn" (click)="deleteLastCommand()"><mat-icon>delete</mat-icon></button>
       </div>
-      <img class="drag_container_options__img__sequence__function" src="../../assets/drag_drop/campo_funcao.png">
-    </div>
-  </div> -->
+  </div>
 </div>
-
-
-

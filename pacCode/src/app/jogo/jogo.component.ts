@@ -1,4 +1,4 @@
-import { CdkDragDrop, copyArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -53,10 +53,10 @@ export class JogoComponent implements OnInit {
 
   ) {
     this.options = [
-      new ItemDirecao("assets/drag_drop/top.svg", 't'),
-      new ItemDirecao("assets/drag_drop/button.svg", 'b'),
-      new ItemDirecao("assets/drag_drop/left.svg", 'l'),
-      new ItemDirecao("assets/drag_drop/right.svg", 'r'),
+      new ItemDirecao("/assets/icons/Cima.svg", 'c'),
+      new ItemDirecao("../../assets/icons/Baixo.svg", 'b'),
+      new ItemDirecao("../../assets/icons/Esquerda.svg", 'e'),
+      new ItemDirecao("../../assets/icons/Direita.svg", 'd'),
     ];
     this.option_function = [
       new ItemDirecao('assets/drag_drop/function.svg', 'f')
@@ -82,13 +82,40 @@ this.directions = []
 
     // this.loadMedals()
 
-    // this.onAnimate();
+    this.onAnimate();
   }
 
   commands: string[] = [];
+  commandSelected!: string;
+  selectedImage!: string;
 
   addCommand(command: string): void {
-    this.commands.push(command);
+    if(this.commands.length < 8){
+      this.commands.push(command);
+      this.commandSelected = command;
+    } else {
+      alert("Número máximo de comando atingido!!")
+    }
+
+  }
+
+  onDrop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.commands, event.previousIndex, event.currentIndex);
+  }
+
+  getCommandImage(command: string): string {
+    switch (command) {
+      case 'up':
+        return '../../assets/icons/Cima.svg';
+      case 'down':
+        return '../../assets/icons/Baixo.svg';
+      case 'left':
+        return '../../assets/icons/Esquerda.svg';
+      case 'right':
+        return '../../assets/icons/Direita.svg';
+      default:
+        return '';
+    }
   }
 
   deleteLastCommand(): void {
@@ -363,7 +390,6 @@ this.directions = []
           }
         }
       )
-
       // detectando colisão entre as paredes
       this.boundaries.forEach((el: any) => {
         if (this.detectCollision(this.jogador, el)) {
@@ -376,44 +402,37 @@ this.directions = []
       });
 
       // fazendo caminhos
-      if (this.directions[0] === "r" && this.pixelMove <= 32) {
+      if (this.directions[0] === "d" && this.pixelMove <= 32) {
         this.jogador.posicao.x += 1;
         this.jogador.image = this.jogador.sprites.right;
         this.jogador.moving = true;
-
-
       }
-      if (this.directions[0] === "l" && this.pixelMove <= 32) {
+      if (this.directions[0] === "e" && this.pixelMove <= 32) {
         this.jogador.posicao.x -= 1;
         this.jogador.image = this.jogador.sprites.left;
         this.jogador.moving = true;
-
       }
       if (this.directions[0] === "b" && this.pixelMove <= 32) {
         this.jogador.posicao.y += 1;
         this.jogador.image = this.jogador.sprites.bottom;
         this.jogador.moving = true;
-
       }
-      if (this.directions[0] === "t" && this.pixelMove <= 32) {
+      if (this.directions[0] === "c" && this.pixelMove <= 32) {
         this.jogador.posicao.y -= 1;
         this.jogador.image = this.jogador.sprites.top;
         this.jogador.moving = true;
-
       }
-
-
       this.pixelMove += 1;
-
-
     }
-
-
   }
 
+  onCloneCommand(index: number) {
+    const clonedItem = Object.assign({}, this.selected_normal[index]);
+    this.selected_normal.splice(index + 1, 0, clonedItem);
+  }
 
   dropOptionElementNormal(event: CdkDragDrop<ItemDirecao[]>) {
-    if (this.selected_normal.length <= 9)
+    if (this.selected_normal.length <= 8)
       copyArrayItem(
         event.previousContainer.data,
         event.container.data,
