@@ -65,7 +65,7 @@
 }
 
 .command-controls-container{
-  margin-top: 0.2rem;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   margin-right: 0.8rem;
   margin-left: 0.8rem;
@@ -74,7 +74,7 @@
     //z-index: 2;
     display: flex;
     width: 35vw;
-    height: 7.2vh;
+    height: 10vh;
     flex-wrap: wrap;
     gap: 8px;
     border: 1px solid black;
@@ -83,7 +83,7 @@
 }
 
 h3 {
-  margin: 0 0 2px;
+  margin: 0 0 8px;
 }
 
 .direction-controls{

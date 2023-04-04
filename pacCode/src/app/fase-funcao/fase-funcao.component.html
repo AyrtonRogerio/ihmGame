@@ -1,0 +1,48 @@
+<mat-toolbar class="toolbar" color="primary">
+  <div class="toolbar-button-container">
+    <button class="toolbar-button" mat-icon-button routerLink="/fases" aria-label="Voltar">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+  <div class="toolbar-title-container">
+    <mat-icon>clock</mat-icon>
+    <span class="toolbar-title">Função</span>
+  </div>
+</mat-toolbar>
+
+<div class="partida-container">
+
+  <!--game-->
+  <div class="mapa-game-container">
+    <canvas #myCanvas height="400" width="960"></canvas>
+    <!--    <canvas #myCanvas ></canvas>-->
+  </div>
+
+  <div class="game-controls-container">
+
+
+
+    <div class="direction-controls-container">
+      <h3>Direções</h3>
+      <div class="direction-controls">
+        <div class="control-box" (click)="addCommand('up')"><img src="../../assets/icons/Cima.svg"></div>
+        <div class="control-box" (click)="addCommand('down')"><img src="../../assets/icons/Baixo.svg"></div>
+        <div class="control-box" (click)="addCommand('left')"><img src="../../assets/icons/Esquerda.svg"></div>
+        <div class="control-box" (click)="addCommand('right')"><img src="../../assets/icons/Direita.svg"></div>
+      </div>
+    </div>
+
+    <div class="command-controls-container">
+      <h3>Comandos</h3>
+      <div class="command-controls">
+        <div class="command-box" *ngFor="let command of commands">
+          <img [src]="getCommandImage(command)">
+        </div>
+      </div>
+    </div>
+    <div class="play-controls-container">
+      <button class="play-button" mat-raised-button color="primary" (click)="executeCommands()"><mat-icon>play_arrow</mat-icon></button>
+      <button class="delete-button" mat-raised-button color="warn" (click)="deleteLastCommand()"><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+</div>

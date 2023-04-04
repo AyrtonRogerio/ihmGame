@@ -19,8 +19,8 @@ export class Sprite {
     this.image.onload = () => {
       this.largura = this.image.width / this.frames.max
       this.altura = this.image.height
-      console.log(this.largura);
-      console.log(this.altura);
+      // console.log(this.largura);
+      // console.log(this.altura);
     }
     this.moving = false
     this.sprites = sprites

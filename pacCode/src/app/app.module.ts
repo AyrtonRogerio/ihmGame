@@ -22,6 +22,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FasesComponent } from './fases/fases.component';
 import { JogoComponent } from './jogo/jogo.component';
+import { FaseFuncaoComponent } from './fase-funcao/fase-funcao.component';
+import { FaseFuncaoHardComponent } from './fase-funcao-hard/fase-funcao-hard.component';
 
 
 
@@ -33,7 +35,9 @@ import { JogoComponent } from './jogo/jogo.component';
     ModalComponent,
     MenuComponent,
     FasesComponent,
-    JogoComponent
+    JogoComponent,
+    FaseFuncaoComponent,
+    FaseFuncaoHardComponent,
   ],
   imports: [
     BrowserModule,
