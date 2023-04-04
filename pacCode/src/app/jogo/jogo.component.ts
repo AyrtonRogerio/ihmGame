@@ -8,6 +8,7 @@ import { Colisao } from '../util/colisao';
 import { Limite } from '../model/limite';
 import { offset } from '../util/offset';
 import { Posicao } from '../model/posicao';
+import {ModalMensagemFaseSucessComponent} from "../modal-mensagem-fase-sucess/modal-mensagem-fase-sucess.component";
 
 @Component({
   selector: 'app-jogo',
@@ -114,6 +115,25 @@ this.directions = []
 
   deleteLastCommand(): void {
     this.commands.pop();
+  }
+
+  onSucessMensage(){
+    const dialogRef = this.dialog.open(ModalMensagemFaseSucessComponent, {
+
+      data: {
+        title: 'Fase concluída!',
+
+      },
+
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog fechado');
+    });
+
+    if (dialogRef.componentInstance.data && dialogRef.componentInstance.data.message) {
+      console.log(dialogRef.componentInstance.data.message);
+    }
   }
 
   loadCollisions() {
@@ -339,11 +359,13 @@ this.directions = []
           } else {
             //  exibir modal-custom de sucesso e passar para a próxima fase
             console.log('entrou else')
+
             if (this.fase < 3) {
               console.log('entrou if dps do else')
               this.showDialogResultEmitResulSession("Vamos para a próxima fase.", 1, true);
               // this.fase += 1;
               this.stopAnimations();
+              this.onSucessMensage();
               // this.resetOptionsSelect();
               // this.loadPlayer();
               // this.loadMedals();

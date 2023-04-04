@@ -8,12 +8,14 @@ import { Colisao } from '../util/colisao';
 import { Limite } from '../model/limite';
 import { offset } from '../util/offset';
 import { Posicao } from '../model/posicao';
+import {ModalMensagemFaseSucessComponent} from "../modal-mensagem-fase-sucess/modal-mensagem-fase-sucess.component";
 @Component({
   selector: 'app-fase-funcao',
   templateUrl: './fase-funcao.component.html',
   styleUrls: ['./fase-funcao.component.scss']
 })
 export class FaseFuncaoComponent implements  OnInit{
+
 
 
   @ViewChild('myCanvas', {static: true})
@@ -35,15 +37,13 @@ export class FaseFuncaoComponent implements  OnInit{
   animation = false;
   pixelMove = 0;
 
-  pointsPlayers = 0;
-
 
   options: ItemDirecao[];
   option_function: ItemDirecao[]
   selected_normal: ItemDirecao[] = [];
   selected_function: ItemDirecao[] = [];
 
-  fase = 1
+  fase = 2
 
 
   constructor(
@@ -77,9 +77,9 @@ export class FaseFuncaoComponent implements  OnInit{
 
     this.loadBackground();
 
-    // this.loadPlayer();
+    this.loadPlayer();
 
-    // this.loadMedals()
+    this.loadMedals()
 
     this.onAnimate();
   }
@@ -89,17 +89,13 @@ export class FaseFuncaoComponent implements  OnInit{
   selectedImage!: string;
 
   addCommand(command: string): void {
-    if(this.commands.length < 8){
+    if(this.commands.length < 12){
       this.commands.push(command);
       this.commandSelected = command;
     } else {
       alert("Número máximo de comando atingido!!")
     }
 
-  }
-
-  onDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.commands, event.previousIndex, event.currentIndex);
   }
 
   getCommandImage(command: string): string {
@@ -121,44 +117,31 @@ export class FaseFuncaoComponent implements  OnInit{
     this.commands.pop();
   }
 
-  executeCommands(): void {
-    let currentIndex = 0;
+  onSucessMensage(){
+    const dialogRef = this.dialog.open(ModalMensagemFaseSucessComponent, {
 
-    const executeNextCommand = () => {
-      if (currentIndex < this.commands.length) {
-        const command = this.commands[currentIndex];
+      data: {
+        title: 'Fase concluída!',
 
-        switch (command) {
-          // case 'moveUp':
-          //   this.moveUp();
-          //   break;
-          // case 'moveDown':
-          //   this.moveDown();
-          //   break;
-          // case 'moveLeft':
-          //   this.moveLeft();
-          //   break;
-          // case 'moveRight':
-          //   this.moveRight();
-          //   break;
-          default:
-            console.log(`Unknown command: ${command}`);
-        }
+      },
 
-        currentIndex++;
-        setTimeout(executeNextCommand, 500);
-      }
-    };
+    });
 
-    executeNextCommand();
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog fechado');
+    });
+
+    if (dialogRef.componentInstance.data && dialogRef.componentInstance.data.message) {
+      console.log(dialogRef.componentInstance.data.message);
+    }
   }
 
   loadCollisions() {
-    const collisions = Colisao.loadColisao(this.fase);
+    const collisions = Colisao.loadColisao(2);
 
-    for (let i = 0; i < collisions.length; i += 20) {
+    for (let i = 0; i < collisions.length; i += 30) {
       // @ts-ignore
-      this.collisionsMap.push(collisions.slice(i, 20 + i));
+      this.collisionsMap.push(collisions.slice(i, 30 + i));
     }
 
     this.collisionsMap.forEach((row: any, i) => {
@@ -181,7 +164,7 @@ export class FaseFuncaoComponent implements  OnInit{
     if (this.fase === 1) {
       image.src = "../../assets/pacCodeFase1Map.png"
     } else if (this.fase === 2) {
-      image.src = "../../assets/pacCodeFase1Map.png"
+      image.src = "../../assets/pacCodeFase2Map.png"
     } else if (this.fase === 3) {
       image.src = "../../assets/pacCodeFase1Map.png"
     }
@@ -195,27 +178,24 @@ export class FaseFuncaoComponent implements  OnInit{
 
   loadPlayer() {
     const playerDownImage = new Image();
-    playerDownImage.src = '../../assets/playerDown.png';
+    playerDownImage.src = '../../assets/personagem/moveDown.png';
     const playerUpImage = new Image();
-    playerUpImage.src = '../../assets/playerUp.png';
+    playerUpImage.src = '../../assets/personagem/moveUp.png';
     const playerLeftImage = new Image();
-    playerLeftImage.src = '../../assets/playerLeft.png';
+    playerLeftImage.src = '../../assets/personagem/moveLeft.png';
     const playerRightImage = new Image();
-    playerRightImage.src = '../../assets/playerRight.png';
+    playerRightImage.src = '../../assets/personagem/moveRight.png';
 
-    let p = new Posicao(100, 192)
-    if (this.fase === 2) {
-      p = new Posicao(326, 160)
-    }
+    let p = new Posicao(65, 320)
     if (this.fase === 3) {
       p = new Posicao(68, 224)
     }
 
 
     this.jogador = new Sprite(p,
-      playerDownImage,
+      playerRightImage,
       0,
-      {max: 4},
+      {max: 3},
       {
         top: playerUpImage,
         left: playerLeftImage,
@@ -226,13 +206,11 @@ export class FaseFuncaoComponent implements  OnInit{
 
   }
 
-
   detectCollision(rect1: Sprite, rect2: any) {
-
-    return (rect1.posicao.x < rect2.position.x + rect2.width &&
-      rect1.posicao.x + rect1.largura > rect2.position.x &&
-      rect1.posicao.y < rect2.position.y + rect2.height &&
-      rect1.posicao.y + rect1.altura > rect2.position.y)
+    return (rect1.posicao.x < rect2.posicao.x + rect2.largura &&
+      rect1.posicao.x + rect1.largura > rect2.posicao.x &&
+      rect1.posicao.y < rect2.posicao.y + rect2.altura &&
+      rect1.posicao.y + rect1.altura > rect2.posicao.y)
   }
 
 
@@ -247,66 +225,60 @@ export class FaseFuncaoComponent implements  OnInit{
     const moedasImage8 = new Image();
     const moedasImage9 = new Image();
 
-    moedasImage.src = '../../assets/moedas.png';
-    moedasImage2.src = '../../assets/moedas.png';
-    moedasImage3.src = '../../assets/moedas.png';
-    moedasImage4.src = '../../assets/moedas.png';
-    moedasImage5.src = '../../assets/moedas.png';
-    moedasImage6.src = '../../assets/moedas.png';
-    moedasImage7.src = '../../assets/moedas.png';
-    moedasImage8.src = '../../assets/moedas.png';
-    moedasImage9.src = '../../assets/moedas.png';
+    moedasImage.src = '../../assets/moeda.png';
+    moedasImage2.src = '../../assets/moeda.png';
+    moedasImage3.src = '../../assets/moeda.png';
+    moedasImage4.src = '../../assets/moeda.png';
+    moedasImage5.src = '../../assets/moeda.png';
+    moedasImage6.src = '../../assets/moeda.png';
+    moedasImage7.src = '../../assets/moeda.png';
+    moedasImage8.src = '../../assets/moeda.png';
+    moedasImage9.src = '../../assets/moeda.png';
 
-    if (this.fase === 1) {
-      this.moedasFaseUm = [
-        new Sprite({x: 168, y: 200}, moedasImage, 0, {max: 10}),
-        new Sprite({x: 200, y: 200}, moedasImage3, 0, {max: 10}),
-        new Sprite({x: 200, y: 234}, moedasImage2, 0, {max: 10}),
-      ]
-    }
     if (this.fase === 2) {
       this.moedasFaseUm = [
-        new Sprite({x: 168, y: 200}, moedasImage, 0, {max: 10}),
-        new Sprite({x: 200, y: 234}, moedasImage2, 0, {max: 10}),
-        new Sprite({x: 232, y: 234}, moedasImage3, 0, {max: 10}),
-        new Sprite({x: 266, y: 234}, moedasImage4, 0, {max: 10}),
-        new Sprite({x: 298, y: 234}, moedasImage5, 0, {max: 10}),
-        new Sprite({x: 328, y: 200}, moedasImage6, 0, {max: 10}),
-      ]
-    }
-    if (this.fase === 3) {
-      this.moedasFaseUm = [
-        new Sprite({x: 168, y: 200}, moedasImage, 0, {max: 10}),
-        new Sprite({x: 200, y: 234}, moedasImage2, 0, {max: 10}),
-        new Sprite({x: 232, y: 234}, moedasImage3, 0, {max: 10}),
-        new Sprite({x: 266, y: 264}, moedasImage4, 0, {max: 10}),
-        new Sprite({x: 298, y: 264}, moedasImage5, 0, {max: 10}),
-        new Sprite({x: 328, y: 234}, moedasImage6, 0, {max: 10}),
-        new Sprite({x: 358, y: 234}, moedasImage7, 0, {max: 10}),
-        new Sprite({x: 388, y: 264}, moedasImage8, 0, {max: 10}),
-        new Sprite({x: 418, y: 264}, moedasImage9, 0, {max: 10}),
+        new Sprite({x: 106, y: 330}, moedasImage, 0, {max: 1}),
+        new Sprite({x: 136, y: 330}, moedasImage2, 0, {max: 1}),
+        new Sprite({x: 168, y: 330}, moedasImage3, 0, {max: 1}),
+        new Sprite({x: 168, y: 296}, moedasImage4, 0, {max: 1}),
+        new Sprite({x: 200, y: 296}, moedasImage5, 0, {max: 1}),
+        new Sprite({x: 232, y: 296}, moedasImage6, 0, {max: 1}),
+        new Sprite({x: 232, y: 330}, moedasImage7, 0, {max: 1}),
+        new Sprite({x: 260, y: 330}, moedasImage8, 0, {max: 1}),
+
       ]
     }
   }
 
   startAnimations() {
 
-    if (this.selected_normal.length > 0) {
-      this.selected_normal.forEach(event => {
-        if (event.key != 'f') {
-          this.directions.push(event.key)
-        } else {
-          this.selected_function.forEach(value =>
-            this.directions.push(value.key))
-        }
-      })
-      if (this.directions.length > 0) {
-        this.pointsPlayers += this.directions.length
+    if(this.commands.length > 0){
+      for(let i = 0; i < this.commands.length; i++){
+        console.log(this.commands[i])
+        this.directions.push(this.commands[i]);
+        console.log(this.directions)
         this.animation = true;
-      } else {
-        alert("Selecione a sequência antes de começar o jogo")
       }
+    } else {
+      alert("Selecione a sequência antes de começar o jogo")
     }
+
+    // if (this.selected_normal.length > 0) {
+    //   this.selected_normal.forEach(event => {
+    //     if (event.key != 'f') {
+    //       this.directions.push(event.key)
+    //     } else {
+    //       this.selected_function.forEach(value =>
+    //         this.directions.push(value.key))
+    //     }
+    //   })
+    //   if (this.directions.length > 0) {
+    //     this.pointsPlayers += this.directions.length
+    //     this.animation = true;
+    //   } else {
+    //     alert("Selecione a sequência antes de começar o jogo")
+    //   }
+    // }
   }
 
   stopAnimations() {
@@ -321,7 +293,7 @@ export class FaseFuncaoComponent implements  OnInit{
   private resetSprite() {
     this.jogador.posicao.x = 100;
     this.jogador.posicao.y = 192;
-    this.jogador.image = this.jogador.sprites.bottom;
+    this.jogador.image = this.jogador.sprites.right;
   }
 
   async onAnimate() {
@@ -360,19 +332,22 @@ export class FaseFuncaoComponent implements  OnInit{
             this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
           } else {
             //  exibir modal-custom de sucesso e passar para a próxima fase
+            console.log('entrou else')
+
             if (this.fase < 3) {
+              console.log('entrou if dps do else')
               this.showDialogResultEmitResulSession("Vamos para a próxima fase.", 1, true);
-              this.fase += 1;
+              // this.fase += 1;
               this.stopAnimations();
-              this.resetOptionsSelect();
-              this.loadPlayer();
-              this.loadMedals();
-              this.loadBackground();
-              this.loadCollisions();
+              this.onSucessMensage();
+              // this.resetOptionsSelect();
+              // this.loadPlayer();
+              // this.loadMedals();
+              // this.loadBackground();
+              // this.loadCollisions();
 
             } else {
 
-              this.router.navigate(['/app/ranking']);
               this.showDialogResultEmitResulSession("Você concluiu o jogo! Vá em histórico e veja sua classificação.", 1, true);
             }
           }
@@ -380,15 +355,23 @@ export class FaseFuncaoComponent implements  OnInit{
           this.directions.splice(0, 1);
         }
       }
-
+      console.log(this.moedasFaseUm.length)
       // detectando colisão enter as moedas e o sprite
-      this.moedasFaseUm.forEach(
-        (moeda: Sprite, index: number) => {
-          if (this.detectCollision(this.jogador, moeda)) {
-            this.moedasFaseUm.splice(index, 1);
-          }
+      for(let i = 0; i < this.moedasFaseUm.length; i++){
+        console.log('entrou for')
+        if (this.detectCollision(this.jogador, this.moedasFaseUm[i])) {
+          console.log('passou colisao moeda')
+          this.moedasFaseUm.splice(i, 1);
         }
-      )
+      }
+      // this.moedasFaseUm.forEach(
+      //   (moeda: Sprite, index: number) => {
+      //     if (this.detectCollision(this.jogador, moeda)) {
+      //       console.log('passou colisao moeda')
+      //       this.moedasFaseUm.splice(index, 1);
+      //     }
+      //   }
+      // )
       // detectando colisão entre as paredes
       this.boundaries.forEach((el: any) => {
         if (this.detectCollision(this.jogador, el)) {
@@ -399,24 +382,23 @@ export class FaseFuncaoComponent implements  OnInit{
           this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
         }
       });
-
       // fazendo caminhos
-      if (this.directions[0] === "d" && this.pixelMove <= 32) {
+      if (this.directions[0] === "right" && this.pixelMove <= 32) {
         this.jogador.posicao.x += 1;
         this.jogador.image = this.jogador.sprites.right;
         this.jogador.moving = true;
       }
-      if (this.directions[0] === "e" && this.pixelMove <= 32) {
+      if (this.directions[0] === "left" && this.pixelMove <= 32) {
         this.jogador.posicao.x -= 1;
         this.jogador.image = this.jogador.sprites.left;
         this.jogador.moving = true;
       }
-      if (this.directions[0] === "b" && this.pixelMove <= 32) {
+      if (this.directions[0] === "down" && this.pixelMove <= 32) {
         this.jogador.posicao.y += 1;
         this.jogador.image = this.jogador.sprites.bottom;
         this.jogador.moving = true;
       }
-      if (this.directions[0] === "c" && this.pixelMove <= 32) {
+      if (this.directions[0] === "up" && this.pixelMove <= 32) {
         this.jogador.posicao.y -= 1;
         this.jogador.image = this.jogador.sprites.top;
         this.jogador.moving = true;
@@ -425,49 +407,9 @@ export class FaseFuncaoComponent implements  OnInit{
     }
   }
 
-  onCloneCommand(index: number) {
-    const clonedItem = Object.assign({}, this.selected_normal[index]);
-    this.selected_normal.splice(index + 1, 0, clonedItem);
-  }
-
-  dropOptionElementNormal(event: CdkDragDrop<ItemDirecao[]>) {
-    if (this.selected_normal.length <= 8)
-      copyArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-  }
-
-
-  dropOptionElementFunction(event: CdkDragDrop<ItemDirecao[]>) {
-    var add = true;
-    event.previousContainer.data.forEach((e: ItemDirecao) => {
-      if (e.key === 'f') add = false;
-    })
-    if (this.selected_function.length <= 6 && add)
-      copyArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-  }
-
 
   showDialogResultEmitResulSession(message: string, fase: number, status: boolean) {
     this.showDialogResult.emit({message: message, fase: fase, status: status})
-  }
-
-
-  onRemoveItemListNormal(i: number) {
-    this.selected_normal.splice(i, 1);
-
-  }
-
-  onRemoveItemListFunction(j: number) {
-    this.selected_function.splice(j, 1);
   }
 
 }

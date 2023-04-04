@@ -24,6 +24,9 @@ import { FasesComponent } from './fases/fases.component';
 import { JogoComponent } from './jogo/jogo.component';
 import { FaseFuncaoComponent } from './fase-funcao/fase-funcao.component';
 import { FaseFuncaoHardComponent } from './fase-funcao-hard/fase-funcao-hard.component';
+import { ModalMensagemFaseSucessComponent } from './modal-mensagem-fase-sucess/modal-mensagem-fase-sucess.component';
+import { ModalMensagemFaseFailedComponent } from './modal-mensagem-fase-failed/modal-mensagem-fase-failed.component';
+import {MatCardModule} from "@angular/material/card";
 
 
 
@@ -38,6 +41,8 @@ import { FaseFuncaoHardComponent } from './fase-funcao-hard/fase-funcao-hard.com
     JogoComponent,
     FaseFuncaoComponent,
     FaseFuncaoHardComponent,
+    ModalMensagemFaseSucessComponent,
+    ModalMensagemFaseFailedComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,8 @@ import { FaseFuncaoHardComponent } from './fase-funcao-hard/fase-funcao-hard.com
     FormsModule,
     HttpClientModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

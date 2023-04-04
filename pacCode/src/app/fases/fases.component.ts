@@ -28,7 +28,14 @@ export class FasesComponent {
 
 
   startGame(faseId: number) {
-    this.router.navigate(['/jogo', faseId]);
+    if(faseId === 1){
+      this.router.navigate(['/jogo']);
+    } else if (faseId === 2){
+      this.router.navigate(['/funcao']);
+    } else if (faseId === 3){
+      this.router.navigate(['/funcao2']);
+    }
+
   }
 
 }
