@@ -23,7 +23,7 @@
 
 
     <div class="direction-controls-container">
-      <h3>Direções</h3>
+      <h3>comandos</h3>
       <div class="direction-controls">
         <div class="control-box" (click)="addCommand('up')"><img src="../../assets/icons/Cima.svg"></div>
         <div class="control-box" (click)="addCommand('down')"><img src="../../assets/icons/Baixo.svg"></div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="command-controls-container">
-      <h3>Comandos</h3>
+      <h3>main</h3>
       <div class="command-controls">
         <div class="command-box" *ngFor="let command of commands">
           <img [src]="getCommandImage(command)">

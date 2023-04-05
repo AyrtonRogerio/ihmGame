@@ -9,6 +9,7 @@ import { Limite } from '../model/limite';
 import { offset } from '../util/offset';
 import { Posicao } from '../model/posicao';
 import {ModalMensagemFaseSucessComponent} from "../modal-mensagem-fase-sucess/modal-mensagem-fase-sucess.component";
+import {ModalMensagemFaseFailedComponent} from "../modal-mensagem-fase-failed/modal-mensagem-fase-failed.component";
 
 @Component({
   selector: 'app-jogo',
@@ -122,6 +123,25 @@ this.directions = []
 
       data: {
         title: 'Fase concluída!',
+
+      },
+
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog fechado');
+    });
+
+    if (dialogRef.componentInstance.data && dialogRef.componentInstance.data.message) {
+      console.log(dialogRef.componentInstance.data.message);
+    }
+  }
+
+  onFailMessage(){
+    const dialogRef = this.dialog.open(ModalMensagemFaseFailedComponent, {
+
+      data: {
+        title: 'Tente novamente!',
 
       },
 
@@ -343,8 +363,12 @@ this.directions = []
 
     this.jogador.moving = false
     if (this.animation) {
+      console.log('e aq?')
+      console.log(this.pixelMove)
+      console.log('opa')
       //  começar a movimentar o personagem na tela
       if (this.pixelMove === 32) {
+        console.log('passo aq ')
         this.pixelMove = 0;
         if (this.directions.length === 0) {
           this.stopAnimations();
@@ -355,6 +379,8 @@ this.directions = []
             this.resetOptionsSelect();
             this.loadPlayer();
             this.loadMedals()
+            this.onFailMessage();
+            console.log('aaaaa')
             this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
           } else {
             //  exibir modal-custom de sucesso e passar para a próxima fase
@@ -404,7 +430,8 @@ this.directions = []
           this.stopAnimations();
           this.resetOptionsSelect();
           this.loadPlayer();
-          this.loadMedals()
+          this.loadMedals();
+          this.onFailMessage();
           this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
         }
       });
