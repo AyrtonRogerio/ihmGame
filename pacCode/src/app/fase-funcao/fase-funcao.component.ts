@@ -89,6 +89,26 @@ export class FaseFuncaoComponent implements  OnInit{
   commandSelected!: string;
   selectedImage!: string;
 
+  onDragStart(event: DragEvent, command: string) {
+    // @ts-ignore
+    event.dataTransfer.setData('text/plain', command);
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent, destination: string) {
+    event.preventDefault();
+    // @ts-ignore
+    const command = event.dataTransfer.getData('text/plain');
+    if (destination === 'function') {
+      this.commandsFunction.push(command);
+    } else if (destination === 'main') {
+      this.commands.push(command);
+    }
+  }
+
   addCommand(command: string): void {
     if(this.commandsFunction.length < 5){
       this.commandsFunction.push(command);
@@ -115,6 +135,37 @@ export class FaseFuncaoComponent implements  OnInit{
       default:
         return '';
     }
+  }
+
+  changeDirection(commandIndex: number) {
+    const currentDirection = this.commands[commandIndex];
+    const possibleDirections = ['up', 'right', 'down', 'left', 'f'];
+    let newDirection = currentDirection;
+
+    for (let i = 1; i <= 5; i++) {
+      const nextIndex = (possibleDirections.indexOf(newDirection) + i) % 5;
+      const nextDirection = possibleDirections[nextIndex];
+
+      if (!this.commands.includes(nextDirection)) {
+        newDirection = nextDirection;
+        break;
+      }
+    }
+
+    this.commands[commandIndex] = newDirection;
+  }
+
+
+  changeCommand(i: number){
+
+  }
+
+  deleteCommand(i: number){
+    this.commands.splice(i, 1);
+  }
+
+  deleteFunctionCommand(i: number){
+    this.commandsFunction.splice(i, 1);
   }
 
   deleteLastCommand(): void {

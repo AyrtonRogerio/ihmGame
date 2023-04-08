@@ -19,37 +19,38 @@
   </div>
 
   <div class="game-controls-container">
-
-
-
     <div class="direction-controls-container">
       <h3>comandos</h3>
       <div class="direction-controls">
-        <div class="control-box" (click)="addCommand('up')"><img src="../../assets/icons/Cima.svg"></div>
-        <div class="control-box" (click)="addCommand('down')"><img src="../../assets/icons/Baixo.svg"></div>
-        <div class="control-box" (click)="addCommand('left')"><img src="../../assets/icons/Esquerda.svg"></div>
-        <div class="control-box" (click)="addCommand('right')"><img src="../../assets/icons/Direita.svg"></div>
-        <div class="control-box" (click)="addCommand('f')"><img src="../../assets/icons/funcao.png"></div>
+        <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'up')"><img src="../../assets/icons/Cima.svg"></div>
+        <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'down')"><img src="../../assets/icons/Baixo.svg"></div>
+        <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'left')"><img src="../../assets/icons/Esquerda.svg"></div>
+        <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'right')"><img src="../../assets/icons/Direita.svg"></div>
+<!--        <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'f')"><img src="../../assets/icons/funcao.png"></div>-->
       </div>
-    </div>
 
+    </div>
     <div class="command-function-controls-container">
       <h3>funcao</h3>
-      <div class="command-function-controls">
-        <div class="command-box" *ngFor="let command of commandsFunction" >
+      <div class="function-icon">
+      <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'f')"><img src="../../assets/icons/funcao.png"></div>
+      <div class="command-function-controls" (drop)="onDrop($event, 'function')" (dragover)="onDragOver($event)">
+        <div class="command-box" *ngFor="let command of commandsFunction; let i = index" (dblclick)="deleteFunctionCommand(i)" >
           <img [src]="getCommandImage(command)">
         </div>
+      </div>
       </div>
     </div>
 
     <div class="command-controls-container">
       <h3>main</h3>
-      <div class="command-controls">
-        <div class="command-box" *ngFor="let command of commands">
+      <div class="command-controls" (drop)="onDrop($event, 'main')" (dragover)="onDragOver($event)">
+        <div class="command-box" *ngFor="let command of commands; let i = index" (dragstart)="onDragStart($event, command)" draggable="true" (dblclick)="deleteCommand(i)" (click)="changeDirection(i)">
           <img [src]="getCommandImage(command)">
         </div>
       </div>
     </div>
+
     <div class="play-controls-container">
       <button class="play-button" mat-raised-button color="primary" (click)="startAnimations()"><mat-icon>play_arrow</mat-icon></button>
       <button class="delete-button" mat-raised-button color="warn" (click)="deleteLastCommand()"><mat-icon>delete</mat-icon></button>
