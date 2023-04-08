@@ -29,6 +29,16 @@
         <div class="control-box" (click)="addCommand('down')"><img src="../../assets/icons/Baixo.svg"></div>
         <div class="control-box" (click)="addCommand('left')"><img src="../../assets/icons/Esquerda.svg"></div>
         <div class="control-box" (click)="addCommand('right')"><img src="../../assets/icons/Direita.svg"></div>
+        <div class="control-box" (click)="addCommand('f')"><img src="../../assets/icons/funcao.png"></div>
+      </div>
+    </div>
+
+    <div class="command-function-controls-container">
+      <h3>funcao</h3>
+      <div class="command-function-controls">
+        <div class="command-box" *ngFor="let command of commandsFunction" >
+          <img [src]="getCommandImage(command)">
+        </div>
       </div>
     </div>
 

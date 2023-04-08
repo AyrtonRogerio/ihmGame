@@ -90,15 +90,16 @@ export class FaseFuncaoComponent implements  OnInit{
   selectedImage!: string;
 
   addCommand(command: string): void {
-    if(this.commands.length < 12){
+    if(this.commandsFunction.length < 5){
+      this.commandsFunction.push(command);
+    } else if (this.commands.length < 5){
       this.commands.push(command);
-      this.commandSelected = command;
+      // this.commandSelected = command;
     } else {
       alert("Número máximo de comando atingido!!")
     }
 
   }
-
   getCommandImage(command: string): string {
     switch (command) {
       case 'up':
@@ -109,23 +110,29 @@ export class FaseFuncaoComponent implements  OnInit{
         return '../../assets/icons/Esquerda.svg';
       case 'right':
         return '../../assets/icons/Direita.svg';
+      case 'f':
+        return '../../assets/icons/funcao.png';
       default:
         return '';
     }
   }
 
   deleteLastCommand(): void {
-    this.commands.pop();
+    if(this.commands.length > 0){
+      this.commands.pop();
+    } else if(this.commandsFunction.length > 0){
+      this.commandsFunction.pop();
+    } else {
+      alert("Nenhum comando para excluir!");
+    }
+
   }
 
   onSucessMensage(){
     const dialogRef = this.dialog.open(ModalMensagemFaseSucessComponent, {
-
       data: {
         title: 'Fase concluída!',
-
       },
-
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -266,6 +273,11 @@ export class FaseFuncaoComponent implements  OnInit{
     if(this.commands.length > 0){
       for(let i = 0; i < this.commands.length; i++){
         console.log(this.commands[i])
+        if(this.commands[i] === 'f'){
+          for(let i = 0; i < this.commandsFunction.length; i++){
+            this.directions.push(this.commandsFunction[i]);
+          }
+        }
         this.directions.push(this.commands[i]);
         console.log(this.directions)
         this.animation = true;
