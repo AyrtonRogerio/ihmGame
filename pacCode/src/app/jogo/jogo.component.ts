@@ -89,6 +89,42 @@ this.directions = []
   commandSelected!: string;
   selectedImage!: string;
 
+  onDragStart(event: DragEvent, command: string) {
+    // @ts-ignore
+    event.dataTransfer.setData('text/plain', command);
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent, destination: string) {
+    event.preventDefault();
+    // @ts-ignore
+    const command = event.dataTransfer.getData('text/plain');
+     if (destination === 'main') {
+      this.commands.push(command);
+    }
+  }
+
+  changeDirection(commandIndex: number) {
+    const currentDirection = this.commands[commandIndex];
+    const possibleDirections = ['up', 'right', 'down', 'left'];
+    let newDirection = currentDirection;
+
+    for (let i = 1; i <= 4; i++) {
+      const nextIndex = (possibleDirections.indexOf(newDirection) + i) % 4;
+      const nextDirection = possibleDirections[nextIndex];
+
+      if (!this.commands.includes(nextDirection)) {
+        newDirection = nextDirection;
+        break;
+      }
+    }
+
+    this.commands[commandIndex] = newDirection;
+  }
+
   addCommand(command: string): void {
     if(this.commands.length < 8){
       this.commands.push(command);
@@ -332,8 +368,7 @@ this.directions = []
   }
 
   resetOptionsSelect() {
-    this.selected_function = [];
-    this.selected_normal = [];
+    this.commands = [];
   }
 
   private resetSprite() {
@@ -381,26 +416,26 @@ this.directions = []
             this.loadMedals()
             this.onFailMessage();
             console.log('aaaaa')
-            this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
+            // this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
           } else {
             //  exibir modal-custom de sucesso e passar para a próxima fase
             console.log('entrou else')
 
             if (this.fase < 3) {
               console.log('entrou if dps do else')
-              this.showDialogResultEmitResulSession("Vamos para a próxima fase.", 1, true);
+              // this.showDialogResultEmitResulSession("Vamos para a próxima fase.", 1, true);
               // this.fase += 1;
               this.stopAnimations();
               this.onSucessMensage();
-              // this.resetOptionsSelect();
-              // this.loadPlayer();
-              // this.loadMedals();
-              // this.loadBackground();
-              // this.loadCollisions();
+              this.resetOptionsSelect();
+              this.loadPlayer();
+              this.loadMedals();
+              this.loadBackground();
+              this.loadCollisions();
 
             } else {
 
-              this.showDialogResultEmitResulSession("Você concluiu o jogo! Vá em histórico e veja sua classificação.", 1, true);
+              // this.showDialogResultEmitResulSession("Você concluiu o jogo! Vá em histórico e veja sua classificação.", 1, true);
             }
           }
         } else {
@@ -432,7 +467,7 @@ this.directions = []
           this.loadPlayer();
           this.loadMedals();
           this.onFailMessage();
-          this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
+          // this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
         }
       });
       // fazendo caminhos

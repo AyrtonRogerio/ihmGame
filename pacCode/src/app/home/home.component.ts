@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {ModalMensagemAlertaComponent} from "../modal-mensagem-alerta/modal-mensagem-alerta.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,7 @@ export class HomeComponent {
 
   playerName: string = '';
 
-  constructor(private router: Router) {}
+  constructor(public dialog: MatDialog, private router: Router) {}
 
   // Valida se o nome do jogador é válido
   isNameInvalid(): boolean {
@@ -27,6 +29,22 @@ export class HomeComponent {
   validateName() {
     this.playerName = this.playerName.substring(0, 20);
     this.playerName = this.playerName.trim();
+  }
+
+  onAlertMessage(titulo: string){
+    const dialogRef = this.dialog.open(ModalMensagemAlertaComponent, {
+      data: {
+        title: titulo,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog fechado');
+    });
+
+    if (dialogRef.componentInstance.data && dialogRef.componentInstance.data.message) {
+      console.log(dialogRef.componentInstance.data.message);
+    }
   }
 
 }

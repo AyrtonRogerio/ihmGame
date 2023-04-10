@@ -6,18 +6,14 @@
   </div>
   <div class="toolbar-title-container">
     <mat-icon>clock</mat-icon>
-    <span class="toolbar-title">Função</span>
+    <span class="toolbar-title">Desafio 2</span>
   </div>
 </mat-toolbar>
-
 <div class="partida-container">
-
   <!--game-->
   <div class="mapa-game-container">
     <canvas #myCanvas height="400" width="960"></canvas>
-    <!--    <canvas #myCanvas ></canvas>-->
   </div>
-
   <div class="game-controls-container">
     <div class="direction-controls-container">
       <h3>comandos</h3>
@@ -26,34 +22,36 @@
         <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'down')"><img src="../../assets/icons/Baixo.svg"></div>
         <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'left')"><img src="../../assets/icons/Esquerda.svg"></div>
         <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'right')"><img src="../../assets/icons/Direita.svg"></div>
-<!--        <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'f')"><img src="../../assets/icons/funcao.png"></div>-->
       </div>
-
     </div>
-    <div class="command-function-controls-container">
-      <h3>funcao</h3>
-      <div class="function-icon">
-      <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'f')"><img src="../../assets/icons/funcao.png"></div>
-      <div class="command-function-controls" (drop)="onDrop($event, 'function')" (dragover)="onDragOver($event)">
-        <div class="command-box" *ngFor="let command of commandsFunction; let i = index" (dblclick)="deleteFunctionCommand(i)" >
-          <img [src]="getCommandImage(command)">
+    <div class="commands-function-and-main">
+      <div class="command-function-controls-container">
+        <h3>funcao</h3>
+        <div class="function-icon">
+          <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'f')"><img src="../../assets/icons/funcao.png"></div>
+          <div class="command-function-controls" (drop)="onDrop($event, 'function')" (dragover)="onDragOver($event)">
+            <div class="command-box" *ngFor="let command of commandsFunction; let i = index" (dragstart)="onDragStart($event, command)" draggable="true" (click)="changeDirectionFunction(i)">
+              <img [src]="getCommandImage(command)">
+            </div>
+          </div>
+          <button class="delete-button" mat-raised-button color="warn" (click)="deleteFunctionCommand()"><mat-icon>delete</mat-icon></button>
         </div>
       </div>
+      <div class="command-controls-container">
+       <div class="command-contols-title-and-container">
+         <h3>main</h3>
+         <div class="command-controls" (drop)="onDrop($event, 'main')" (dragover)="onDragOver($event)">
+           <div class="command-box" *ngFor="let command of commands; let i = index" (dragstart)="onDragStart($event, command)" draggable="true" (click)="changeDirection(i)">
+             <img [src]="getCommandImage(command)">
+           </div>
+         </div>
+       </div>
+        <button class="delete-button" mat-raised-button color="warn" (click)="deleteCommand()"><mat-icon>delete</mat-icon></button>
       </div>
     </div>
-
-    <div class="command-controls-container">
-      <h3>main</h3>
-      <div class="command-controls" (drop)="onDrop($event, 'main')" (dragover)="onDragOver($event)">
-        <div class="command-box" *ngFor="let command of commands; let i = index" (dragstart)="onDragStart($event, command)" draggable="true" (dblclick)="deleteCommand(i)" (click)="changeDirection(i)">
-          <img [src]="getCommandImage(command)">
-        </div>
-      </div>
-    </div>
-
     <div class="play-controls-container">
       <button class="play-button" mat-raised-button color="primary" (click)="startAnimations()"><mat-icon>play_arrow</mat-icon></button>
-      <button class="delete-button" mat-raised-button color="warn" (click)="deleteLastCommand()"><mat-icon>delete</mat-icon></button>
+<!--      <button class="delete-button" mat-raised-button color="warn" (click)="deleteLastCommand()"><mat-icon>delete</mat-icon></button>-->
     </div>
   </div>
 </div>

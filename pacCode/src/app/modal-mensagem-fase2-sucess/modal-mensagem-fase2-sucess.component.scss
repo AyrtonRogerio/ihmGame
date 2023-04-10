@@ -1,0 +1,52 @@
+.container-sucess{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: #009688;
+
+
+  .container-sucess-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    background-color: #009688;
+    .container-sucess-img{
+      height: 6rem;
+      width: 6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .container-sucess-text{
+      color: #FFFFFF;
+      font-size: 2rem;
+    }
+
+
+  }
+  .button-container{
+    background-color: #009688;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+
+    button{
+      height: 5rem;
+      width: 5rem;
+    }
+
+    mat-icon{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      font-size: 3rem;
+      color: #FFFFFF;
+      overflow: visible;
+    }
+
+  }
+}

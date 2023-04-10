@@ -1,4 +1,3 @@
-import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -8,7 +7,10 @@ import { Colisao } from '../util/colisao';
 import { Limite } from '../model/limite';
 import { offset } from '../util/offset';
 import { Posicao } from '../model/posicao';
-import {ModalMensagemFaseSucessComponent} from "../modal-mensagem-fase-sucess/modal-mensagem-fase-sucess.component";
+import {ModalMensagemFase2SucessComponent} from "../modal-mensagem-fase2-sucess/modal-mensagem-fase2-sucess.component";
+import {ModalMensagemFase2FailedComponent} from "../modal-mensagem-fase2-failed/modal-mensagem-fase2-failed.component";
+import {ModalMensagemAlertaComponent} from "../modal-mensagem-alerta/modal-mensagem-alerta.component";
+import {config} from "rxjs";
 @Component({
   selector: 'app-fase-funcao',
   templateUrl: './fase-funcao.component.html',
@@ -37,12 +39,6 @@ export class FaseFuncaoComponent implements  OnInit{
   animation = false;
   pixelMove = 0;
 
-
-  options: ItemDirecao[];
-  option_function: ItemDirecao[]
-  selected_normal: ItemDirecao[] = [];
-  selected_function: ItemDirecao[] = [];
-
   fase = 2
 
 
@@ -50,17 +46,7 @@ export class FaseFuncaoComponent implements  OnInit{
     public dialog: MatDialog,
     private router: Router,
 
-  ) {
-    this.options = [
-      new ItemDirecao("/assets/icons/Cima.svg", 'c'),
-      new ItemDirecao("../../assets/icons/Baixo.svg", 'b'),
-      new ItemDirecao("../../assets/icons/Esquerda.svg", 'e'),
-      new ItemDirecao("../../assets/icons/Direita.svg", 'd'),
-    ];
-    this.option_function = [
-      new ItemDirecao('assets/drag_drop/function.svg', 'f')
-    ];
-  }
+  ) {}
 
 
 
@@ -86,8 +72,6 @@ export class FaseFuncaoComponent implements  OnInit{
 
   commands: string[] = [];
   commandsFunction: string[] = [];
-  commandSelected!: string;
-  selectedImage!: string;
 
   onDragStart(event: DragEvent, command: string) {
     // @ts-ignore
@@ -97,7 +81,6 @@ export class FaseFuncaoComponent implements  OnInit{
   onDragOver(event: DragEvent) {
     event.preventDefault();
   }
-
   onDrop(event: DragEvent, destination: string) {
     event.preventDefault();
     // @ts-ignore
@@ -105,21 +88,20 @@ export class FaseFuncaoComponent implements  OnInit{
     if (destination === 'function') {
       this.commandsFunction.push(command);
     } else if (destination === 'main') {
+      if (command === 'f') {
+        const fCommands = this.commands.filter(c => c === 'f');
+        if (fCommands.length >= 2) {
+          this.onAlertMessage('O máximo de uso da função é 2!');
+          return;
+        } else if(this.commandsFunction.length === 0){
+          this.onAlertMessage('Você precisa adicionar comandos para sua função!');
+          return;
+        }
+      }
       this.commands.push(command);
     }
   }
 
-  addCommand(command: string): void {
-    if(this.commandsFunction.length < 5){
-      this.commandsFunction.push(command);
-    } else if (this.commands.length < 5){
-      this.commands.push(command);
-      // this.commandSelected = command;
-    } else {
-      alert("Número máximo de comando atingido!!")
-    }
-
-  }
   getCommandImage(command: string): string {
     switch (command) {
       case 'up':
@@ -155,35 +137,80 @@ export class FaseFuncaoComponent implements  OnInit{
     this.commands[commandIndex] = newDirection;
   }
 
+  changeDirectionFunction(commandIndex: number) {
+    const currentDirection = this.commandsFunction[commandIndex];
+    const possibleDirections = ['up', 'right', 'down', 'left'];
+    let newDirection = currentDirection;
 
-  changeCommand(i: number){
+    for (let i = 1; i <= 4; i++) {
+      const nextIndex = (possibleDirections.indexOf(newDirection) + i) % 4;
+      const nextDirection = possibleDirections[nextIndex];
 
+      if (!this.commandsFunction.includes(nextDirection)) {
+        newDirection = nextDirection;
+        break;
+      }
+    }
+    this.commandsFunction[commandIndex] = newDirection;
   }
 
-  deleteCommand(i: number){
-    this.commands.splice(i, 1);
-  }
-
-  deleteFunctionCommand(i: number){
-    this.commandsFunction.splice(i, 1);
-  }
-
-  deleteLastCommand(): void {
+  deleteCommand(){
     if(this.commands.length > 0){
       this.commands.pop();
-    } else if(this.commandsFunction.length > 0){
+    }  else {
+      this.onAlertMessage('Nenhum comando no main para excluir!')
+    }
+  }
+
+  deleteFunctionCommand(){
+     if(this.commandsFunction.length > 0){
       this.commandsFunction.pop();
     } else {
-      alert("Nenhum comando para excluir!");
-    }
 
+      this.onAlertMessage('Nenhum comando na função para excluir!')
+    }
+  }
+
+  onAlertMessage(titulo: string){
+    const dialogRef = this.dialog.open(ModalMensagemAlertaComponent, {
+      data: {
+        title: titulo,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog fechado');
+    });
+
+    if (dialogRef.componentInstance.data && dialogRef.componentInstance.data.message) {
+      console.log(dialogRef.componentInstance.data.message);
+    }
   }
 
   onSucessMensage(){
-    const dialogRef = this.dialog.open(ModalMensagemFaseSucessComponent, {
+    const dialogRef = this.dialog.open(ModalMensagemFase2SucessComponent, {
       data: {
         title: 'Fase concluída!',
       },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog fechado');
+    });
+
+    if (dialogRef.componentInstance.data && dialogRef.componentInstance.data.message) {
+      console.log(dialogRef.componentInstance.data.message);
+    }
+  }
+
+  onFailMessage(){
+    const dialogRef = this.dialog.open(ModalMensagemFase2FailedComponent, {
+
+      data: {
+        title: 'Tente novamente!',
+
+      },
+
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -334,25 +361,10 @@ export class FaseFuncaoComponent implements  OnInit{
         this.animation = true;
       }
     } else {
-      alert("Selecione a sequência antes de começar o jogo")
+      this.onAlertMessage('Selecione a sequência antes de começar o jogo!')
     }
 
-    // if (this.selected_normal.length > 0) {
-    //   this.selected_normal.forEach(event => {
-    //     if (event.key != 'f') {
-    //       this.directions.push(event.key)
-    //     } else {
-    //       this.selected_function.forEach(value =>
-    //         this.directions.push(value.key))
-    //     }
-    //   })
-    //   if (this.directions.length > 0) {
-    //     this.pointsPlayers += this.directions.length
-    //     this.animation = true;
-    //   } else {
-    //     alert("Selecione a sequência antes de começar o jogo")
-    //   }
-    // }
+
   }
 
   stopAnimations() {
@@ -360,8 +372,8 @@ export class FaseFuncaoComponent implements  OnInit{
   }
 
   resetOptionsSelect() {
-    this.selected_function = [];
-    this.selected_normal = [];
+    this.commands = [];
+    this.commandsFunction = [];
   }
 
   private resetSprite() {
@@ -391,38 +403,35 @@ export class FaseFuncaoComponent implements  OnInit{
 
     this.jogador.moving = false
     if (this.animation) {
+      console.log('e aq?')
+
+      console.log('opa' + this.pixelMove)
       //  começar a movimentar o personagem na tela
       if (this.pixelMove === 32) {
+        console.log('passo aq ')
         this.pixelMove = 0;
         if (this.directions.length === 0) {
+          console.log('entrou aqui no if')
           this.stopAnimations();
           //  verificado consição de parada do game
+          console.log('qtd mmoeda' + this.moedasFaseUm.length);
           if (this.moedasFaseUm.length > 0) {
+            console.log('ainda ten mmoeda')
             //  exibir modal-custom de perdeu  e tentar novamente
             this.stopAnimations();
             this.resetOptionsSelect();
             this.loadPlayer();
             this.loadMedals()
-            this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
+            // this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
           } else {
-            //  exibir modal-custom de sucesso e passar para a próxima fase
-            console.log('entrou else')
-
-            if (this.fase < 3) {
-              console.log('entrou if dps do else')
-              this.showDialogResultEmitResulSession("Vamos para a próxima fase.", 1, true);
-              // this.fase += 1;
+            if (this.fase === 2) {
               this.stopAnimations();
               this.onSucessMensage();
-              // this.resetOptionsSelect();
-              // this.loadPlayer();
-              // this.loadMedals();
-              // this.loadBackground();
-              // this.loadCollisions();
-
-            } else {
-
-              this.showDialogResultEmitResulSession("Você concluiu o jogo! Vá em histórico e veja sua classificação.", 1, true);
+              this.resetOptionsSelect();
+              this.loadPlayer();
+              this.loadMedals();
+              this.loadBackground();
+              this.loadCollisions();
             }
           }
         } else {
@@ -432,28 +441,22 @@ export class FaseFuncaoComponent implements  OnInit{
       console.log(this.moedasFaseUm.length)
       // detectando colisão enter as moedas e o sprite
       for(let i = 0; i < this.moedasFaseUm.length; i++){
-        console.log('entrou for')
         if (this.detectCollision(this.jogador, this.moedasFaseUm[i])) {
-          console.log('passou colisao moeda')
           this.moedasFaseUm.splice(i, 1);
         }
       }
-      // this.moedasFaseUm.forEach(
-      //   (moeda: Sprite, index: number) => {
-      //     if (this.detectCollision(this.jogador, moeda)) {
-      //       console.log('passou colisao moeda')
-      //       this.moedasFaseUm.splice(index, 1);
-      //     }
-      //   }
-      // )
-      // detectando colisão entre as paredes
       this.boundaries.forEach((el: any) => {
         if (this.detectCollision(this.jogador, el)) {
           this.stopAnimations();
           this.resetOptionsSelect();
           this.loadPlayer();
+          if(this.moedasFaseUm.length <= 0){
+
+            this.onSucessMensage();
+          } else{
+            this.onFailMessage();
+          }
           this.loadMedals()
-          this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
         }
       });
       // fazendo caminhos
@@ -481,9 +484,5 @@ export class FaseFuncaoComponent implements  OnInit{
     }
   }
 
-
-  showDialogResultEmitResulSession(message: string, fase: number, status: boolean) {
-    this.showDialogResult.emit({message: message, fase: fase, status: status})
-  }
 
 }

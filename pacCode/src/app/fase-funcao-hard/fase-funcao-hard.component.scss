@@ -1,0 +1,401 @@
+.toolbar {
+  background-color: #009688;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-button-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.toolbar-title-container {
+  display: flex;
+  justify-content: center;
+  flex: 2;
+}
+
+.toolbar-button {
+  margin-right: 8px;
+}
+
+.toolbar-title {
+  font-size: 1.5em;
+}
+.partida-container {
+  padding: 10px 0;
+  margin: 0 auto;
+
+}
+
+.mapa-game-container {
+  // height: 600;
+  // width: 640;
+  // background-color: #000000;
+  max-height: 400px;
+
+  display: flex;
+
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 0.5rem;
+  justify-content: center;
+}
+
+.game-controls-container {
+  max-height: 15rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  border: 1px solid black;
+}
+
+.direction-controls-container {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-right: 0.8rem;
+  margin-left: 1.6rem;
+
+}
+
+.commands-function-and-main{
+
+  display: flex;
+  flex-direction: column;
+
+  .command-function-controls-container{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
+
+    .function-icon{
+      display: flex;
+      flex-direction: row;
+      //align-items: end;
+
+      .control-box{
+        margin-right: 0.5vw;
+        margin-bottom: 1vh;
+      }
+      .command-function-controls{
+        display: flex;
+        width: 22.3vw;
+        height: 7vh;
+        flex-wrap: wrap;
+        gap: 8px;
+        border: 1px solid black;
+        border-radius: 3px;
+        .command-box {
+          width: 48px;
+          height: 48px;
+          background-color: #eee;
+          border: 1px solid #aaa;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+        }
+      }
+
+      .delete-button{
+        height: 50px;
+        width:45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0.5vw;
+        mat-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 26px;
+          margin: 0;
+          overflow: visible;
+        }
+      }
+    }
+
+
+  }
+
+  .command-controls-container{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
+    //z-index: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    .command-contols-title-and-container{
+      .command-controls {
+        //z-index: 2;
+        display: flex;
+        width: 26vw;
+        height: 7vh;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-radius: 3px;
+        border: 1px solid black;
+      }
+
+
+    }
+
+    .delete-button{
+      height: 50px;
+      width:45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0.5vw;
+      mat-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        margin: 0;
+        overflow: visible;
+      }
+    }
+
+  }
+
+}
+
+
+
+h3 {
+  margin: 0 0 1px;
+}
+
+.direction-controls{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.control-box, .command-box {
+  width: 48px;
+  height: 48px;
+  background-color: #eee;
+  border: 1px solid #aaa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.command-box {
+  cursor: pointer;
+}
+
+.play-controls-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1.6rem;
+  margin-bottom: 1.6rem;
+  margin-right: 1.6rem;
+  margin-left: 0.8rem;
+
+  .play-button{
+    height: 64px;
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 46px;
+      margin: 0;
+      overflow: visible;
+    }
+  }
+
+  .delete-button{
+    height: 64px;
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin: 0;
+      overflow: visible;
+    }
+  }
+}
+
+
+
+.partida_container__controls {
+  display: flex;
+  justify-content: center;
+}
+
+.partida_container__start__reset {
+  /*height: 25px;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 840px;
+  padding-bottom: 24px;
+  margin: 0 auto;
+}
+
+.partida_container__start__reset__button {
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+.partida_container__start__reset__button:hover {
+  -webkit-box-shadow: 5px 5px 15px -5px #000000;
+  box-shadow: 5px 5px 15px -5px #000000;
+}
+
+
+.partida_container__start__reset__button__icon {
+  height: 40px;
+  border-radius: 4px;
+}
+
+.drag_container {
+  width: 100%;
+}
+
+
+.drag_container_options {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /*gap: 12px;*/
+  padding: 20px;
+  /*width: 100%;*/
+  background: yellow;
+  background: #2F2F2E;
+}
+
+
+.drag_container_options__start {
+  /*border: solid 1px #ccc;*/
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 160px;
+  gap: 4px;
+  border-right: 20px;
+  z-index: 2;
+  margin-right: 12px;
+}
+
+.drag_container_options__item {
+  width: 31px;
+  height: 31px;
+  margin: .5px;
+  border-radius: 4px;
+  border: none;
+  z-index: 1;
+}
+
+.drag_container_options__destine {
+  left: 172px;
+  width: 338px;
+  height: 32px;
+  z-index: 2;
+  margin-right: 50px;
+}
+
+.drag_container_options__destine__function {
+  z-index: 2;
+  margin-left: 24px;
+  height: 32px;
+  width: 240px;
+  /*background: red;*/
+}
+
+
+.drag_container_options__img__sequence {
+  position: absolute;
+  left: 182px;
+  z-index: 0;
+  padding-bottom: 8px;
+}
+
+.drag_container_options__img__sequence__function {
+  position: absolute;
+  left: 628px;
+  padding-bottom: 8px;
+  z-index: 0;
+}
+
+.drag_container_options__function {
+  /*margin: 0 24px ;*/
+  width: 32px;
+  height: 32px;
+}
+
+
+.start-list__item-list__item {
+  -webkit-box-shadow: 1px 2px 17px 7px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 2px 17px 7px rgba(0, 0, 0, 0.1);
+}
+
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+

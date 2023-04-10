@@ -27,6 +27,11 @@ import { FaseFuncaoHardComponent } from './fase-funcao-hard/fase-funcao-hard.com
 import { ModalMensagemFaseSucessComponent } from './modal-mensagem-fase-sucess/modal-mensagem-fase-sucess.component';
 import { ModalMensagemFaseFailedComponent } from './modal-mensagem-fase-failed/modal-mensagem-fase-failed.component';
 import {MatCardModule} from "@angular/material/card";
+import { ModalMensagemFase2SucessComponent } from './modal-mensagem-fase2-sucess/modal-mensagem-fase2-sucess.component';
+import { ModalMensagemFase3SucessComponent } from './modal-mensagem-fase3-sucess/modal-mensagem-fase3-sucess.component';
+import { ModalMensagemFase2FailedComponent } from './modal-mensagem-fase2-failed/modal-mensagem-fase2-failed.component';
+import { ModalMensagemFase3FailedComponent } from './modal-mensagem-fase3-failed/modal-mensagem-fase3-failed.component';
+import { ModalMensagemAlertaComponent } from './modal-mensagem-alerta/modal-mensagem-alerta.component';
 
 
 
@@ -43,6 +48,11 @@ import {MatCardModule} from "@angular/material/card";
     FaseFuncaoHardComponent,
     ModalMensagemFaseSucessComponent,
     ModalMensagemFaseFailedComponent,
+    ModalMensagemFase2SucessComponent,
+    ModalMensagemFase3SucessComponent,
+    ModalMensagemFase2FailedComponent,
+    ModalMensagemFase3FailedComponent,
+    ModalMensagemAlertaComponent,
   ],
   imports: [
     BrowserModule,

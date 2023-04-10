@@ -44,7 +44,7 @@
 }
 
 .game-controls-container {
-  max-height: 10rem;
+  max-height: 15rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -64,61 +64,113 @@
 
 }
 
-.command-function-controls-container{
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  margin-right: 0.8rem;
-  margin-left: 0.8rem;
+.commands-function-and-main{
 
-  .function-icon{
-    display: flex;
-    flex-direction: row;
-    //align-items: end;
+  display: flex;
+  flex-direction: column;
 
-    .control-box{
-      margin-right: 1vw;
-      margin-bottom: 1vh;
-    }
-    .command-function-controls{
+  .command-function-controls-container{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
+
+    .function-icon{
       display: flex;
-      width: 20vw;
-      height: 7vh;
-      flex-wrap: wrap;
-      gap: 8px;
-      border: 1px solid black;
-      .command-box {
-        width: 48px;
-        height: 48px;
-        background-color: #eee;
-        border: 1px solid #aaa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      flex-direction: row;
+      //align-items: end;
 
+      .control-box{
+        margin-right: 0.5vw;
+        margin-bottom: 1vh;
+      }
+      .command-function-controls{
+        display: flex;
+        width: 22.3vw;
+        height: 7vh;
+        flex-wrap: wrap;
+        gap: 8px;
+        border: 1px solid black;
+        border-radius: 3px;
+        .command-box {
+          width: 48px;
+          height: 48px;
+          background-color: #eee;
+          border: 1px solid #aaa;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+        }
+      }
+
+      .delete-button{
+        height: 50px;
+        width:45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0.5vw;
+        mat-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 26px;
+          margin: 0;
+          overflow: visible;
+        }
       }
     }
+
+
   }
 
-
-}
-
-.command-controls-container{
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  margin-right: 0.8rem;
-  margin-left: 0.8rem;
-  //z-index: 2;
-  .command-controls {
+  .command-controls-container{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
     //z-index: 2;
     display: flex;
-    width: 26vw;
-    height: 7vh;
-    flex-wrap: wrap;
-    gap: 8px;
-    border: 1px solid black;
+    flex-direction: row;
+    align-items: end;
+    .command-contols-title-and-container{
+      .command-controls {
+        //z-index: 2;
+        display: flex;
+        width: 26vw;
+        height: 7vh;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-radius: 3px;
+        border: 1px solid black;
+      }
+
+
+    }
+
+    .delete-button{
+      height: 50px;
+      width:45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0.5vw;
+      mat-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        margin: 0;
+        overflow: visible;
+      }
+    }
+
   }
 
 }
+
+
 
 h3 {
   margin: 0 0 1px;
