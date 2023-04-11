@@ -23,6 +23,9 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/home'])
   }
 
+  openLink() {
+    window.open('https://youtu.be/3mHUP9F95jI', '_blank');
+  }
 
     onPageCredits() {
       const dialogRef = this.dialog.open(ModalComponent, {

@@ -30,7 +30,7 @@
         <div class="function-icon">
           <div class="control-box" draggable="true" (dragstart)="onDragStart($event, 'f')"><img src="../../assets/icons/funcao.png"></div>
           <div class="command-function-controls" (drop)="onDrop($event, 'function')" (dragover)="onDragOver($event)">
-            <div class="command-box" *ngFor="let command of commandsFunction; let i = index" (dragstart)="onDragStart($event, command)" draggable="true" (click)="changeDirectionFunction(i)">
+            <div class="command-box" *ngFor="let command of commandsFunction; let i = index" (dragstart)="onDragStart($event, command)" draggable="true" >
               <img [src]="getCommandImage(command)">
             </div>
           </div>
@@ -41,7 +41,7 @@
        <div class="command-contols-title-and-container">
          <h3>main</h3>
          <div class="command-controls" (drop)="onDrop($event, 'main')" (dragover)="onDragOver($event)">
-           <div class="command-box" *ngFor="let command of commands; let i = index" (dragstart)="onDragStart($event, command)" draggable="true" (click)="changeDirection(i)">
+           <div class="command-box" *ngFor="let command of commands; let i = index" (dragstart)="onDragStart($event, command)" draggable="true" >
              <img [src]="getCommandImage(command)">
            </div>
          </div>

@@ -36,15 +36,15 @@
         <div class="command-contols-title-and-container">
           <h3>main</h3>
           <div class="command-controls" (drop)="onDrop($event, 'main')" (dragover)="onDragOver($event)">
-            <div class="command-box" *ngFor="let command of commands; let i = index" (dragstart)="onDragStart($event, command)" draggable="true" (click)="changeDirection(i)">
+            <div class="command-box" *ngFor="let command of commands; let i = index" (dragstart)="onDragStart($event, command)" draggable="true">
               <img [src]="getCommandImage(command)">
             </div>
           </div>
         </div>
+        <button class="delete-button" mat-raised-button color="warn" (click)="deleteLastCommand()"><mat-icon>delete</mat-icon></button>
       </div>
       <div class="play-controls-container">
         <button class="play-button" mat-raised-button color="primary" (click)="startAnimations()"><mat-icon>play_arrow</mat-icon></button>
-        <button class="delete-button" mat-raised-button color="warn" (click)="deleteLastCommand()"><mat-icon>delete</mat-icon></button>
       </div>
   </div>
 </div>

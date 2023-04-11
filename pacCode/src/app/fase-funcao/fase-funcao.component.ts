@@ -86,7 +86,11 @@ export class FaseFuncaoComponent implements  OnInit{
     // @ts-ignore
     const command = event.dataTransfer.getData('text/plain');
     if (destination === 'function') {
-      this.commandsFunction.push(command);
+      if(this.commandsFunction.length < 6){
+        this.commandsFunction.push(command);
+      } else {
+        this.onAlertMessage('Você atingiu o máximo de comandos para a função!');
+      }
     } else if (destination === 'main') {
       if (command === 'f') {
         const fCommands = this.commands.filter(c => c === 'f');
@@ -98,7 +102,12 @@ export class FaseFuncaoComponent implements  OnInit{
           return;
         }
       }
-      this.commands.push(command);
+      if(this.commands.length < 7){
+        this.commands.push(command);
+      } else {
+        this.onAlertMessage('Você atingiu o máximo de comandos para o main!');
+      }
+
     }
   }
 

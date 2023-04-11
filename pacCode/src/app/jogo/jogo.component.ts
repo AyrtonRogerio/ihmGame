@@ -71,6 +71,7 @@ this.directions = []
   }
 
   commands: string[] = [];
+  availableDirections: string[] = ['up', 'right', 'down', 'left'];
 
   onDragStart(event: DragEvent, command: string) {
     // @ts-ignore
@@ -89,7 +90,7 @@ this.directions = []
        if(this.commands.length <8){
          this.commands.push(command);
        } else {
-         this.onAlertMessage('"Número máximo de comando atingido!!');
+         this.onAlertMessage('Você atingiu o máximo de comandos para o main!');
        }
     }
   }
@@ -111,6 +112,8 @@ this.directions = []
 
     this.commands[commandIndex] = newDirection;
   }
+
+
 
   getCommandImage(command: string): string {
     switch (command) {
