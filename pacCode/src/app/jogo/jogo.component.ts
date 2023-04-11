@@ -10,6 +10,7 @@ import { offset } from '../util/offset';
 import { Posicao } from '../model/posicao';
 import {ModalMensagemFaseSucessComponent} from "../modal-mensagem-fase-sucess/modal-mensagem-fase-sucess.component";
 import {ModalMensagemFaseFailedComponent} from "../modal-mensagem-fase-failed/modal-mensagem-fase-failed.component";
+import {ModalMensagemAlertaComponent} from "../modal-mensagem-alerta/modal-mensagem-alerta.component";
 
 @Component({
   selector: 'app-jogo',
@@ -38,12 +39,6 @@ export class JogoComponent implements OnInit {
   animation = false;
   pixelMove = 0;
 
-
-  options: ItemDirecao[];
-  option_function: ItemDirecao[]
-  selected_normal: ItemDirecao[] = [];
-  selected_function: ItemDirecao[] = [];
-
   fase = 1
 
 
@@ -51,17 +46,7 @@ export class JogoComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
 
-  ) {
-    this.options = [
-      new ItemDirecao("/assets/icons/Cima.svg", 'c'),
-      new ItemDirecao("../../assets/icons/Baixo.svg", 'b'),
-      new ItemDirecao("../../assets/icons/Esquerda.svg", 'e'),
-      new ItemDirecao("../../assets/icons/Direita.svg", 'd'),
-    ];
-    this.option_function = [
-      new ItemDirecao('assets/drag_drop/function.svg', 'f')
-    ];
-  }
+  ) {}
 
 
 
@@ -86,8 +71,6 @@ this.directions = []
   }
 
   commands: string[] = [];
-  commandSelected!: string;
-  selectedImage!: string;
 
   onDragStart(event: DragEvent, command: string) {
     // @ts-ignore
@@ -103,7 +86,11 @@ this.directions = []
     // @ts-ignore
     const command = event.dataTransfer.getData('text/plain');
      if (destination === 'main') {
-      this.commands.push(command);
+       if(this.commands.length <8){
+         this.commands.push(command);
+       } else {
+         this.onAlertMessage('"Número máximo de comando atingido!!');
+       }
     }
   }
 
@@ -125,16 +112,6 @@ this.directions = []
     this.commands[commandIndex] = newDirection;
   }
 
-  addCommand(command: string): void {
-    if(this.commands.length < 8){
-      this.commands.push(command);
-      this.commandSelected = command;
-    } else {
-      alert("Número máximo de comando atingido!!")
-    }
-
-  }
-
   getCommandImage(command: string): string {
     switch (command) {
       case 'up':
@@ -151,7 +128,27 @@ this.directions = []
   }
 
   deleteLastCommand(): void {
-    this.commands.pop();
+    if(this.commands.length > 0){
+      this.commands.pop();
+    }  else {
+      this.onAlertMessage('Nenhum comando no main para excluir!');
+    }
+  }
+
+  onAlertMessage(titulo: string){
+    const dialogRef = this.dialog.open(ModalMensagemAlertaComponent, {
+      data: {
+        title: titulo,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog fechado');
+    });
+
+    if (dialogRef.componentInstance.data && dialogRef.componentInstance.data.message) {
+      console.log(dialogRef.componentInstance.data.message);
+    }
   }
 
   onSucessMensage(){
@@ -342,25 +339,8 @@ this.directions = []
         this.animation = true;
       }
     } else {
-      alert("Selecione a sequência antes de começar o jogo")
+      this.onAlertMessage('"Selecione uma sequência antes de começar o jogo!!');
     }
-
-    // if (this.selected_normal.length > 0) {
-    //   this.selected_normal.forEach(event => {
-    //     if (event.key != 'f') {
-    //       this.directions.push(event.key)
-    //     } else {
-    //       this.selected_function.forEach(value =>
-    //         this.directions.push(value.key))
-    //     }
-    //   })
-    //   if (this.directions.length > 0) {
-    //     this.pointsPlayers += this.directions.length
-    //     this.animation = true;
-    //   } else {
-    //     alert("Selecione a sequência antes de começar o jogo")
-    //   }
-    // }
   }
 
   stopAnimations() {
@@ -395,15 +375,10 @@ this.directions = []
       value.moving = true
     })
 
-
     this.jogador.moving = false
     if (this.animation) {
-      console.log('e aq?')
-      console.log(this.pixelMove)
-      console.log('opa')
       //  começar a movimentar o personagem na tela
       if (this.pixelMove === 32) {
-        console.log('passo aq ')
         this.pixelMove = 0;
         if (this.directions.length === 0) {
           this.stopAnimations();
@@ -415,16 +390,8 @@ this.directions = []
             this.loadPlayer();
             this.loadMedals()
             this.onFailMessage();
-            console.log('aaaaa')
-            // this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
           } else {
-            //  exibir modal-custom de sucesso e passar para a próxima fase
-            console.log('entrou else')
-
             if (this.fase < 3) {
-              console.log('entrou if dps do else')
-              // this.showDialogResultEmitResulSession("Vamos para a próxima fase.", 1, true);
-              // this.fase += 1;
               this.stopAnimations();
               this.onSucessMensage();
               this.resetOptionsSelect();
@@ -433,9 +400,6 @@ this.directions = []
               this.loadBackground();
               this.loadCollisions();
 
-            } else {
-
-              // this.showDialogResultEmitResulSession("Você concluiu o jogo! Vá em histórico e veja sua classificação.", 1, true);
             }
           }
         } else {
@@ -445,20 +409,10 @@ this.directions = []
       console.log(this.moedasFaseUm.length)
       // detectando colisão enter as moedas e o sprite
       for(let i = 0; i < this.moedasFaseUm.length; i++){
-        console.log('entrou for')
         if (this.detectCollision(this.jogador, this.moedasFaseUm[i])) {
-          console.log('passou colisao moeda')
           this.moedasFaseUm.splice(i, 1);
         }
       }
-      // this.moedasFaseUm.forEach(
-      //   (moeda: Sprite, index: number) => {
-      //     if (this.detectCollision(this.jogador, moeda)) {
-      //       console.log('passou colisao moeda')
-      //       this.moedasFaseUm.splice(index, 1);
-      //     }
-      //   }
-      // )
       // detectando colisão entre as paredes
       this.boundaries.forEach((el: any) => {
         if (this.detectCollision(this.jogador, el)) {
@@ -467,7 +421,6 @@ this.directions = []
           this.loadPlayer();
           this.loadMedals();
           this.onFailMessage();
-          // this.showDialogResultEmitResulSession("Tente novamente :(", 1, false);
         }
       });
       // fazendo caminhos
@@ -493,11 +446,6 @@ this.directions = []
       }
       this.pixelMove += 1;
     }
-  }
-
-
-  showDialogResultEmitResulSession(message: string, fase: number, status: boolean) {
-    this.showDialogResult.emit({message: message, fase: fase, status: status})
   }
 
 }

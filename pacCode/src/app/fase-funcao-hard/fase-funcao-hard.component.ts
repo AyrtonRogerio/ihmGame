@@ -211,7 +211,7 @@ export class FaseFuncaoHardComponent implements OnInit{
   onSucessMensage(){
     const dialogRef = this.dialog.open(ModalMensagemFase3SucessComponent, {
       data: {
-        title: 'Fase concluída!',
+        title: 'Parabéns! Você conseguiu completar todos os desafios!',
       },
     });
 
@@ -332,8 +332,8 @@ export class FaseFuncaoHardComponent implements OnInit{
     const moedasImage8 = new Image();
     const moedasImage9 = new Image();
     const moedasImage10 = new Image();
-    const moedasImage11 = new Image();
-    const moedasImage12 = new Image();
+    // const moedasImage11 = new Image();
+    // const moedasImage12 = new Image();
 
     moedasImage.src = '../../assets/moeda.png';
     moedasImage2.src = '../../assets/moeda.png';
@@ -345,8 +345,8 @@ export class FaseFuncaoHardComponent implements OnInit{
     moedasImage8.src = '../../assets/moeda.png';
     moedasImage9.src = '../../assets/moeda.png';
     moedasImage10.src = '../../assets/moeda.png';
-    moedasImage11.src = '../../assets/moeda.png';
-    moedasImage12.src = '../../assets/moeda.png';
+    // moedasImage11.src = '../../assets/moeda.png';
+    // moedasImage12.src = '../../assets/moeda.png';
 
     if (this.fase === 3) {
       this.moedasFaseUm = [
@@ -355,13 +355,13 @@ export class FaseFuncaoHardComponent implements OnInit{
         new Sprite({x: 170, y: 330}, moedasImage3, 0, {max: 1}),
         new Sprite({x: 202, y: 330}, moedasImage4, 0, {max: 1}),
         new Sprite({x: 234, y: 330}, moedasImage5, 0, {max: 1}),
-        new Sprite({x: 266, y: 330}, moedasImage6, 0, {max: 1}),
-        new Sprite({x: 266, y: 294}, moedasImage7, 0, {max: 1}),
-        new Sprite({x: 266, y: 262}, moedasImage8, 0, {max: 1}),
-        new Sprite({x: 298, y: 262}, moedasImage9, 0, {max: 1}),
-        new Sprite({x: 330, y: 262}, moedasImage10, 0, {max: 1}),
-        new Sprite({x: 330, y: 294}, moedasImage11, 0, {max: 1}),
-        new Sprite({x: 330, y: 330}, moedasImage12, 0, {max: 1}),
+        new Sprite({x: 234, y: 294}, moedasImage6, 0, {max: 1}),
+        new Sprite({x: 234, y: 262}, moedasImage7, 0, {max: 1}),
+        new Sprite({x: 202, y: 262}, moedasImage8, 0, {max: 1}),
+        new Sprite({x: 170, y: 262}, moedasImage9, 0, {max: 1}),
+        new Sprite({x: 138, y: 262}, moedasImage10, 0, {max: 1}),
+        // new Sprite({x: 138, y: 294}, moedasImage11, 0, {max: 1}),
+        // new Sprite({x: 330, y: 330}, moedasImage12, 0, {max: 1}),
       ]
     }
   }

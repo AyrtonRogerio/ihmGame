@@ -361,7 +361,7 @@ export class FaseFuncaoComponent implements  OnInit{
         this.animation = true;
       }
     } else {
-      this.onAlertMessage('Selecione a sequência antes de começar o jogo!')
+      this.onAlertMessage('Selecione uma sequência antes de começar o jogo!')
     }
 
 
